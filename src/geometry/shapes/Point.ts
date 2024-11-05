@@ -1,15 +1,18 @@
+import { v4 } from "uuid";
 import { Segment } from "./Segment";
 import { Shape } from "./Shape";
 
-interface Location2D { x: number, y: number }
+interface Location { x: number, y: number }
 
-export class Point<Location extends Location2D = Location2D> extends Shape {
+export class Point extends Shape {
 
   private location: Location;
+  readonly id: string;
 
   constructor(location: Location) {
     super()
     this.location = location;
+    this.id = v4()
   }
 
   get x() { return this.location.x }

@@ -29,7 +29,6 @@ export function composeConvexHull(source: Point[]) {
       }
     }
     convex.push(i)
-    console
   }
 
   return convex.map(index => points[index])

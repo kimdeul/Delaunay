@@ -13,8 +13,8 @@ export class Segment extends Shape {
   }
 
   is(segment: Segment) {
-    if (this.from === segment.from && this.to === segment.to) return true;
-    if (this.from === segment.to && this.from === segment.to) return true;
+    if (this.from.id === segment.from.id && this.to.id === segment.to.id) return true;
+    if (this.from.id === segment.to.id && this.to.id === segment.from.id) return true;
     return false;
   }
 

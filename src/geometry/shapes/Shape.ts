@@ -1,6 +1,7 @@
 export class Shape {
 
-  private ephemeral: boolean
+  private ephemeral: boolean;
+
   constructor() {
     this.ephemeral = false;
   }
