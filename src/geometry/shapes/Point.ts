@@ -25,6 +25,10 @@ export class Point extends Shape {
     })
   }
 
+  is(point: Point) {
+    return this.id === point.id;
+  }
+
   lineTo(to: Point) {
     return new Segment(this, to)
   }

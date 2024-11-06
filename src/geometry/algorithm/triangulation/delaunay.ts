@@ -1,4 +1,4 @@
-import { Area, Global } from "../../Area";
+import { Area } from "../../Area";
 import { Point } from "../../shapes/Point";
 import { Segment } from "../../shapes/Segment";
 import { Triangle } from "../../shapes/Triangle";
@@ -14,11 +14,11 @@ function proposeSuperTriangle() {
   ])
 }
 
-export function delaunay() {
+export function delaunay(source: Point[]) {
 
   // Cannot make DT.
-  if (Global.points.length < 3) {
-    return;
+  if (source.length < 3) {
+    return [];
   }
 
   const Local: Area = {
@@ -27,18 +27,18 @@ export function delaunay() {
     triangles: []
   }
 
-  Local.points.push(...Global.points)
+  Local.points.push(...source)
   Local.triangles.push(proposeSuperTriangle())
   Local.points.push(...Local.triangles[0].vertices)
 
-  for (let i=0; i<Global.points.length; i++) {
+  for (let i=0; i<source.length; i++) {
     const point = Local.points[i]
     const filtered: Segment[] = []
+
     for (const triangle of Local.triangles) {
       if (triangle.deleted) continue;
       if (triangle.inCircumcircle(point)) {
         triangle.delete()
-        console.log(triangle)
         filtered.push(...triangle.edges)
       }
     }
@@ -46,7 +46,6 @@ export function delaunay() {
     const edges: Segment[] = []
     for (const segment of filtered) {
       const found = edges.find(seg => !seg.deleted && seg.is(segment))
-      console.log("FOUND", found)
       if (!found) edges.push(segment)
       else {
         found.delete()
